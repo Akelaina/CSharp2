@@ -12,25 +12,55 @@ namespace MyGame
     {
         public static BaseObject[] _objs;
 
+        const int numOfStars = 100;
+        const int numOfComets = 10;
+        const int numOfAsteroids = 5;
+        const int maxSize = 30;
+        const int minSize = 10;
+        const int speed = 6;
+
         public static void Load()
         {
-            Random rnd = new Random();
+            Random rand = new Random();
+            _objs = new BaseObject[numOfStars + numOfAsteroids + numOfComets];
 
-            _objs = new BaseObject[60];
+            for (int i = 0; i < _objs.Length - numOfStars - numOfAsteroids; i++)
+            {
+                int size = rand.Next(minSize / 2, maxSize / 2);
+                _objs[i] = new Comet(new Point(Convert.ToInt32(rand.NextDouble() * (double)Game.Width),
+                    Convert.ToInt32(rand.NextDouble() * (double)Game.Height)),
+                    new Point(rand.Next(-speed * 2, -1), 0),
+                    new Size(size, size));
+            }
 
-            for (int i = 0; i < 50; i++)
-                _objs[i] = new Star(new Point(rnd.Next(1, 800), i * rnd.Next(1, 20)), new Point(rnd.Next(1, 10) - i, rnd.Next(1, 10) - i), new Size(3,3));
+            for (int i = _objs.Length - numOfStars - numOfAsteroids; i < _objs.Length - numOfAsteroids; i++)
+            {
+                int size = rand.Next(minSize / 4, maxSize / 4);
+                _objs[i] = new Star(new Point(Convert.ToInt32(rand.NextDouble() * (double)Game.Width),
+                    Convert.ToInt32(rand.NextDouble() * (double)Game.Height)), 
+                    new Point(rand.Next(-speed * 2, -1), 0), 
+                    new Size(size, size));
+            }
 
-            for (int i = 50; i < _objs.Length; i++)
-                _objs[i] = new Comet(new Point(rnd.Next(1, 800), i * rnd.Next(1, 20)), new Point(rnd.Next(1, 20) - i, rnd.Next(1, 20) - i), new Size(7, 1));
-
+            for (int i = _objs.Length - numOfAsteroids; i < _objs.Length; i++)
+            {
+                int size = rand.Next(minSize*2, maxSize*2);
+                _objs[i] = new BaseObject(new Point(Convert.ToInt32(rand.NextDouble() * (double)(Game.Width - size)),
+                    Convert.ToInt32(rand.NextDouble() * (double)(Game.Height - size))), 
+                    new Point(rand.Next(-speed, speed), rand.Next(-speed, speed)), 
+                    new Size(size, size));
+            }
 
             /*
             for (int i = _objs.Length / 2; i < _objs.Length; i++)
-                _objs[i] = new Star(new Point(rnd_x, i * rnd_y), new Point(-i, 10), new Size(5, 5));
+                _objs[i] = new Star(new Point(rnd_x, i * rnd_y), 
+                new Point(-i, 10), 
+                new Size(5, 5));
 
             for (int i = 0; i < _objs.Length / 2; i++)
-                _objs[i] = new BaseObject(new Point(rnd_x, i * 20), new Point(-i, -i), new Size(10, 10));
+                _objs[i] = new BaseObject(new Point(rnd_x, i * 20), 
+                new Point(-i, -i), 
+                new Size(10, 10));
             */
         }
 
@@ -70,7 +100,7 @@ namespace MyGame
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             // Добавили таймер
-            Timer timer = new Timer { Interval = 1000 };
+            Timer timer = new Timer { Interval = 70 };
             timer.Start();
             timer.Tick += Timer_Tick;
 

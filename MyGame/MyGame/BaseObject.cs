@@ -13,6 +13,9 @@ namespace MyGame
         protected Point Dir;
         protected Size Size;
 
+        Bitmap image = new Bitmap("..\\..\\img/asteroid.png");
+        protected Random random = new Random();
+
         public BaseObject(Point pos, Point dir, Size size)
         {
             Pos = pos;
@@ -22,7 +25,7 @@ namespace MyGame
 
         public virtual void Draw()
         {
-            Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(image, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
 
         public virtual void Update()

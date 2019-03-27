@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BaseObject.cs" />
     <Compile Include="Comet.cs" />
+    <Compile Include="Dust.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
