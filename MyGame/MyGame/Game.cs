@@ -14,14 +14,24 @@ namespace MyGame
 
         public static void Load()
         {
-            _objs = new BaseObject[30];
+            Random rnd = new Random();
 
+            _objs = new BaseObject[60];
+
+            for (int i = 0; i < 50; i++)
+                _objs[i] = new Star(new Point(rnd.Next(1, 800), i * rnd.Next(1, 20)), new Point(rnd.Next(1, 10) - i, rnd.Next(1, 10) - i), new Size(3,3));
+
+            for (int i = 50; i < _objs.Length; i++)
+                _objs[i] = new Comet(new Point(rnd.Next(1, 800), i * rnd.Next(1, 20)), new Point(rnd.Next(1, 20) - i, rnd.Next(1, 20) - i), new Size(7, 1));
+
+
+            /*
             for (int i = _objs.Length / 2; i < _objs.Length; i++)
-                _objs[i] = new Star(new Point(600, i * 20), new Point(-i, 0), new Size(5, 5));
+                _objs[i] = new Star(new Point(rnd_x, i * rnd_y), new Point(-i, 10), new Size(5, 5));
 
             for (int i = 0; i < _objs.Length / 2; i++)
-                _objs[i] = new BaseObject(new Point(600, i * 20), new Point(-i, -i), new Size(10, 10));
-
+                _objs[i] = new BaseObject(new Point(rnd_x, i * 20), new Point(-i, -i), new Size(10, 10));
+            */
         }
 
         private static BufferedGraphicsContext _context;
@@ -60,7 +70,7 @@ namespace MyGame
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             // Добавили таймер
-            Timer timer = new Timer { Interval = 100 };
+            Timer timer = new Timer { Interval = 1000 };
             timer.Start();
             timer.Tick += Timer_Tick;
 

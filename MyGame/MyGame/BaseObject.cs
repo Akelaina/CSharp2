@@ -27,6 +27,7 @@ namespace MyGame
 
         public virtual void Update()
         {
+
             Pos.X = Pos.X + Dir.X;
             Pos.Y = Pos.Y + Dir.Y;
             if (Pos.X < 0) Dir.X = -Dir.X;
