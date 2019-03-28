@@ -15,6 +15,7 @@ namespace MyGame
             Form menu = new Form();
             menu.Width = 500;
             menu.Height = 500;
+            menu.StartPosition = FormStartPosition.CenterScreen;
             SplashScreen.Init(menu);
             menu.Show();
             SplashScreen.Draw();
@@ -38,7 +39,6 @@ namespace MyGame
                 Height = 30,
                 Width = 100,
                 Location = new Point(menu.Width / 2 - 60, menu.Height - menu.Height / 2 - 30)
-
             };
             recordsBtn.Click += recordsBtnClick;
             menu.Controls.Add(recordsBtn);
@@ -50,7 +50,6 @@ namespace MyGame
                 Height = 30,
                 Width = 100,
                 Location = new Point(menu.Width / 2 - 60, menu.Height - menu.Height / 3 - 30)
-
             };
             exitBtn.Click += exitBtnClick;
             menu.Controls.Add(exitBtn);
@@ -99,6 +98,7 @@ namespace MyGame
                 Form game = new Form();
                 game.Width = 800;
                 game.Height = 600;
+                game.StartPosition = FormStartPosition.CenterScreen;
                 Game.Init(game);
                 game.FormClosed += Game_FormClosed;
                 Game.Load();
