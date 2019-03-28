@@ -82,6 +82,8 @@ namespace MyGame
             Update();
         }
 
+        static public Timer timer = new Timer { Interval = 70 };
+
         public static void Init(Form form)
         {
             // Графическое устройство для вывода графики            
@@ -100,7 +102,7 @@ namespace MyGame
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
             // Добавили таймер
-            Timer timer = new Timer { Interval = 70 };
+            
             timer.Start();
             timer.Tick += Timer_Tick;
 
