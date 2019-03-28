@@ -13,8 +13,8 @@ namespace MyGame
         static void Main(string[] args)
         {
             Form menu = new Form();
-            menu.Width = 800;
-            menu.Height = 600;
+            menu.Width = 500;
+            menu.Height = 500;
             SplashScreen.Init(menu);
             menu.Show();
             SplashScreen.Draw();
@@ -23,7 +23,9 @@ namespace MyGame
             {
                 Text = "Играть",
                 Font = new Font("Times New Roman", 12),
-                Location = new Point(menu.Width / 2 - 30, menu.Height / 3)
+                Height = 30,
+                Width = 100,
+                Location = new Point(menu.Width / 2 - 60, menu.Height / 3 - 30)
             };
 
             startBtn.Click += startBtnClick;
@@ -33,7 +35,9 @@ namespace MyGame
             {
                 Text = "Рекорды",
                 Font = new Font("Times New Roman", 12),
-                Location = new Point(menu.Width / 2 - 30, menu.Height - menu.Height / 2)
+                Height = 30,
+                Width = 100,
+                Location = new Point(menu.Width / 2 - 60, menu.Height - menu.Height / 2 - 30)
 
             };
             recordsBtn.Click += recordsBtnClick;
@@ -43,7 +47,9 @@ namespace MyGame
             {
                 Text = "Выход",
                 Font = new Font("Times New Roman", 12),
-                Location = new Point(menu.Width / 2 - 30, menu.Height - menu.Height / 3)
+                Height = 30,
+                Width = 100,
+                Location = new Point(menu.Width / 2 - 60, menu.Height - menu.Height / 3 - 30)
 
             };
             exitBtn.Click += exitBtnClick;
@@ -51,18 +57,18 @@ namespace MyGame
 
             Label autor = new Label
             {
-                Text = " Евгения и Аркадий Брюховецкие 2018 © ",
+                Text = " Евгения и Аркадий Брюховецкие 2019 © ",
                 ForeColor = Color.White,
                 BackColor = Color.Black,
                 AutoSize = true,
                 Font = new Font("Times New Roman", 10, FontStyle.Bold),
-                Location = new Point(menu.Width/2, menu.Height - menu.Height / 8)
+                Location = new Point(menu.Width/4, menu.Height - menu.Height / 8)
 
             };
 
             Label version = new Label
             {
-                Text = " v.1.1.0 ",
+                Text = " v.1.0.1 ",
                 ForeColor = Color.White,
                 BackColor = Color.Black,
                 AutoSize = true,
@@ -83,6 +89,9 @@ namespace MyGame
 
             void recordsBtnClick(object sender, EventArgs e)
             {
+                string message = "Таблица рекордов на этапе разработки";
+                string caption = "Уведомление";
+                MessageBox.Show(message, caption);
             }
 
             void startBtnClick(object sender, EventArgs e)
