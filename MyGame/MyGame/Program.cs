@@ -61,7 +61,7 @@ namespace MyGame
                 BackColor = Color.Black,
                 AutoSize = true,
                 Font = new Font("Times New Roman", 10, FontStyle.Bold),
-                Location = new Point(menu.Width/4, menu.Height - menu.Height / 8)
+                Location = new Point(menu.Width / 4, menu.Height - menu.Height / 8)
 
             };
 

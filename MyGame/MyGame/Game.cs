@@ -14,7 +14,7 @@ namespace MyGame
 
         const int numOfStars = 100;
         const int numOfComets = 10;
-        const int numOfAsteroids = 5;
+        const int numOfAsteroids = 7 ;
         const int maxSize = 30;
         const int minSize = 10;
         const int speed = 6;
