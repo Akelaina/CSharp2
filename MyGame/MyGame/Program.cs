@@ -67,7 +67,7 @@ namespace MyGame
 
             Label version = new Label
             {
-                Text = " v.1.0.1 ",
+                Text = " v.1.0.2 ",
                 ForeColor = Color.White,
                 BackColor = Color.Black,
                 AutoSize = true,
@@ -95,13 +95,17 @@ namespace MyGame
 
             void startBtnClick(object sender, EventArgs e)
             {
-                Form game = new Form();
-                game.Width = 800;
-                game.Height = 600;
+                Form game = new Form()
+                {
+                    Width = Screen.PrimaryScreen.Bounds.Width,
+                    Height = Screen.PrimaryScreen.Bounds.Height
+                };
+                //game.Width = 800;
+                //game.Height = 600;
                 game.StartPosition = FormStartPosition.CenterScreen;
                 Game.Init(game);
                 game.FormClosed += Game_FormClosed;
-                Game.Load();
+                //Game.Load();
                 game.Show();
                 Game.Draw();
             }

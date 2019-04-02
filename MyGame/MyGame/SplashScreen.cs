@@ -14,20 +14,15 @@ namespace MyGame
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
 
+        /// <summary>
+        /// Ширина экрана
+        /// </summary>
         public static int Width { get; set; }
 
-        public static int Height { get; set; }
-
-        static SplashScreen()
-        {
-        }
-
         /// <summary>
-        /// Метод инициализации объектов в форме
+        /// Высота экрана
         /// </summary>
-        public static void Load()
-        { 
-        }
+        public static int Height { get; set; }
 
         /// <summary>
         /// Метод для вывода графики в форме
