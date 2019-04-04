@@ -12,7 +12,8 @@ namespace MyGame
     /// </summary>
     abstract class BaseObject : ICollision
     {
-        
+        public delegate void Message();
+
         protected Point Pos;
         protected Point Dir;
         protected Size Size;

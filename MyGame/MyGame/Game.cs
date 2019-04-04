@@ -24,6 +24,7 @@ namespace MyGame
         public static BaseObject[] _objs;
         private static Asteroid[] _asteroids;
         private static Bullet _bullet;
+        private static Ship _ship;
 
         //Количество объектов
         const int numOfStars = 250;
@@ -35,6 +36,7 @@ namespace MyGame
         const int speed = 6;
 
         //Размеры объектов
+        const int ShipSize = 70;
         const int maxSize = 30;
         const int minSize = 10;
         const int maxAstSize = 70;
@@ -66,6 +68,7 @@ namespace MyGame
             try
             {
                 _objs = new BaseObject[numOfStars + numOfComets];
+                _ship = new Ship(new Point(10, 200), new Point(5, 5), new Size(ShipSize, ShipSize));
                 _bullet = new Bullet(new Point(0, 100), new Point(5, 0), new Size(5, 1));
                 _asteroids = new Asteroid[numOfAsteroids];
 
@@ -101,15 +104,15 @@ namespace MyGame
                     _asteroids[i] = new Asteroid(new Point(widthPosition, heightPosition),
                                     new Point(speed1, speed2), new Size(size, size));
 
-
-                    if (size < 0)
-                        throw new GameObjectException($"Размер объекта {typeof(Asteroid)} меньше нуля", -1);
-                    if (widthPosition < 0 || widthPosition > Game.Width || heightPosition < 0 || heightPosition > Game.Height)
-                        throw new GameObjectException($"Объект {typeof(Asteroid)} появился за пределами экрана", 2);
-                    if (speed1 == 0 && speed2 == 0)
-                        throw new GameObjectException($"Объект {typeof(Asteroid)} стоит на месте", 0);
-                    if (Math.Abs(speed1) > speedLimit || Math.Abs(speed2) > speedLimit)
-                        throw new GameObjectException($"Объект {typeof(Asteroid)} двигается со слишком большой скоростью", 1);
+                    ///Exception на размер астероидов
+                    //if (size < 0)
+                    //    throw new GameObjectException($"Размер объекта {typeof(Asteroid)} меньше нуля", -1);
+                    //if (widthPosition < 0 || widthPosition > Game.Width || heightPosition < 0 || heightPosition > Game.Height)
+                    //    throw new GameObjectException($"Объект {typeof(Asteroid)} появился за пределами экрана", 2);
+                    //if (speed1 == 0 && speed2 == 0)
+                    //    throw new GameObjectException($"Объект {typeof(Asteroid)} стоит на месте", 0);
+                    //if (Math.Abs(speed1) > speedLimit || Math.Abs(speed2) > speedLimit)
+                    //    throw new GameObjectException($"Объект {typeof(Asteroid)} двигается со слишком большой скоростью", 1);
 
                 }
             }
@@ -156,6 +159,8 @@ namespace MyGame
             {
                 Width = form.ClientSize.Width;
                 Height = form.ClientSize.Height;
+                
+                //Exception на превышение размеров формы
                 if (Width > formSizeLimit || Height > formSizeLimit)
                 {
                     throw new ArgumentOutOfRangeException("Игровое окно будет развернуто на весь экран");
@@ -173,6 +178,24 @@ namespace MyGame
             // Добавили таймер
             timer.Start();
             timer.Tick += Timer_Tick;
+
+            //Добавили обработчик событий на кнопки
+            form.KeyDown += Form_KeyDown;
+
+            //Добавили конец игры через делегат события Message
+            Ship.MessageDie += Finish;
+        }
+
+        /// <summary>
+        /// Метод, реализующий действия на нажатие клавиш
+        /// </summary>
+        /// <param name="sender"> Действие </param>
+        /// <param name="e"> Обработчик действия </param>
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if (e.KeyCode == Keys.Up) _ship.Up();
+            if (e.KeyCode == Keys.Down) _ship.Down();
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
@@ -188,11 +211,15 @@ namespace MyGame
         {
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs)
-                obj.Draw();
+                obj?.Draw();
 
             foreach (Asteroid obj in _asteroids)
-                obj.Draw();
-            _bullet.Draw();
+                obj?.Draw();
+            _bullet?.Draw();
+            _ship?.Draw();
+            if (_ship != null)
+                Buffer.Graphics.DrawString("Energy:" + _ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
+
             Buffer.Render();
         }
 
@@ -203,18 +230,43 @@ namespace MyGame
         {
             foreach (BaseObject obj in _objs)
                 obj.Update();
-
-            foreach (Asteroid ast in _asteroids)
+                _bullet?.Update();
+            for (var i = 0; i < _asteroids.Length; i++)
             {
-                ast.Update();
-                if (ast.Collision(_bullet))
+                if (_asteroids[i] == null) continue;
+                _asteroids[i].Update();
+                if (_bullet != null && _bullet.Collision(_asteroids[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
-                    ast.ReCreate();
-                    _bullet.ReСreate();
+                    _asteroids[i] = null;
+                    _bullet = null;
+                    continue;
                 }
+                if (!_ship.Collision(_asteroids[i])) continue;
+                var rnd = new Random();
+                _ship?.EnergyLow(rnd.Next(1, 10));
+                System.Media.SystemSounds.Asterisk.Play();
+                if (_ship.Energy <= 0) _ship?.Die();
             }
-            _bullet.Update();
+
+            //foreach (Asteroid ast in _asteroids)
+            //{
+            //    ast?.Update();
+            //    if (ast.Collision(_bullet))
+            //    {
+            //        System.Media.SystemSounds.Hand.Play();
+            //        ast.ReCreate();
+            //        _bullet.ReСreate();
+            //    }
+            //}
+
+        }
+
+        public static void Finish()
+        {
+            timer.Stop();
+            Buffer.Graphics.DrawString("Конец игры!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, 200, 100);
+            Buffer.Render();
         }
 
     }

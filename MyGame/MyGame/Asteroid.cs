@@ -34,6 +34,19 @@ namespace MyGame
         {
             Power = 1;
             image = AsteroidList[random.Next(0, AsteroidList.Count)];
+
+            switch (rand.Next(1,3))
+            {
+                case 0:
+                    image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    break;
+                case 1:
+                    image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    break;
+                case 2:
+                    image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    break;
+            }   
         }
 
         /// <summary>
@@ -49,7 +62,6 @@ namespace MyGame
         /// </summary>
         public override void Update()
         {
-
 
             Pos.X = Pos.X + Dir.X;
             Pos.Y = Pos.Y + Dir.Y;
