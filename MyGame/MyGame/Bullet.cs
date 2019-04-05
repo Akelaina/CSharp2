@@ -9,6 +9,10 @@ namespace MyGame
 {
     class Bullet : BaseObject
     {
+
+        public static event Action<string> BulletDestroyed;
+        public static event Action<string> BulletOutOfScreen;
+
         Random rand = new Random();
         /// <summary>Инициализирует объект Bullet на основании базового класса BaseObject</summary>
         /// <param name="pos">Позиция</param>
@@ -31,7 +35,7 @@ namespace MyGame
         /// </summary>
         public override void Update()
         {
-            Pos.X = Pos.X + 5;
+            Pos.X = Pos.X + Dir.X;
             //Pos.Y = Convert.ToInt32(rand.NextDouble() * (double)Game.Height - Size.Height);
         }
 
@@ -42,6 +46,25 @@ namespace MyGame
         {
             Pos.X = 0;
             Pos.Y = Convert.ToInt32(rand.NextDouble() * (double)Game.Height - Size.Height);
+        }
+
+        /// <summary>Метод возвращает true, если снаряд вышел за пределы экрана</summary>
+        /// <returns></returns>
+        public bool OutOfScreen()
+        {
+            if (Pos.X > Game.Width)
+            {
+                BulletOutOfScreen?.Invoke($"{DateTime.Now}: Снаряд вышел за пределы экрана");
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>Метод записи уничтожения снаряда</summary>
+        internal void Destroyed()
+        {
+            BulletDestroyed?.Invoke($"{DateTime.Now}: Снаряд уничтожен");
         }
     }
 

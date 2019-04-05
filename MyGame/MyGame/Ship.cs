@@ -9,26 +9,29 @@ namespace MyGame
 {
     class Ship : BaseObject
     {
+        Bitmap image = new Bitmap("..\\..\\img/ship.png");
+
         public static event Message MessageDie;
+        public static event Action<string> ShipDie;
+        public static event Action<string> ShipEnergyLow;
+        public static event Action<string> ShipEnergyHigh;
 
+        private static int maxEnergy = 100;
 
-        /// <summary>
-        /// Список картинок для добавления астеоридов
-        /// </summary>
-        List<Bitmap> ShipList = new List<Bitmap>() {new Bitmap("..\\..\\img/ship.png") };
+        private int _energy = maxEnergy;
 
-        private Bitmap image;
+        public int Energy => _energy;
 
-        public int Energy { get; private set; } = 100;
-
+        /// <summary> Метод получения урона кораблю </summary>
+        /// <param name="n">Величина урона</param>
         public void EnergyLow(int n)
         {
-            Energy -= n;
+            _energy -= n;
+            ShipEnergyLow?.Invoke($"{DateTime.Now}: Корабль получил повреждения");
         }
 
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
-            image = ShipList[0];
         }
 
         public override void Draw()
@@ -53,6 +56,7 @@ namespace MyGame
         public void Die()
         {
             MessageDie?.Invoke();
+            ShipDie?.Invoke($"{DateTime.Now}: Корабль был уничтожен");
         }
 
     }

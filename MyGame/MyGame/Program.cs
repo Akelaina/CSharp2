@@ -88,7 +88,7 @@ namespace MyGame
 
             void recordsBtnClick(object sender, EventArgs e)
             {
-                string message = "Таблица рекордов на этапе разработки";
+                string message = $"Последний рекорд: {Game.score} очков";
                 string caption = "Уведомление";
                 MessageBox.Show(message, caption);
             }
@@ -110,7 +110,7 @@ namespace MyGame
 
         private static void Game_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Game.timer.Stop();
+            Game.Closed();
         }
     }
 
