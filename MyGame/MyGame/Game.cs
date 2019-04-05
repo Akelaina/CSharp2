@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace MyGame
 {
@@ -23,16 +24,27 @@ namespace MyGame
         public static BufferedGraphics Buffer;
         public static BaseObject[] _objs;
         private static Asteroid[] _asteroids;
-        private static Bullet _bullet;
+        private static List<Bullet> _bullet = new List<Bullet>();
         private static Ship _ship;
+        public static int score = 0;
+
+        //Записи логов действий программы в файл и консоль
+        //Asteroid.AsteroidCreation += Logs.Log;
+        //Asteroid.AsteroidRecreation += Logs.Log;
+        //Ship.ShipDie += Logs.Log;
+        //Ship.ShipEnergyLow += Logs.Log;
+        //Ship.ShipEnergyHigh += Logs.Log;
+        //Bullet.BulletOutOfScreen += Logs.Log;
+        //Bullet.BulletDestroyed += Logs.Log;
 
         //Количество объектов
         const int numOfStars = 250;
         const int numOfComets = 13;
-        const int numOfAsteroids = 17;
+        const int numOfAsteroids = 30;
 
         //Скорости объектов
-        const int asteroidSpeed = 10;
+        const int asteroidSpeed = 13;
+        const int bulletSpeed = 30;
         const int speed = 6;
 
         //Размеры объектов
@@ -69,7 +81,7 @@ namespace MyGame
             {
                 _objs = new BaseObject[numOfStars + numOfComets];
                 _ship = new Ship(new Point(10, 200), new Point(5, 5), new Size(ShipSize, ShipSize));
-                _bullet = new Bullet(new Point(0, 100), new Point(5, 0), new Size(5, 1));
+                //_bullet = new Bullet(new Point(0, 100), new Point(5, 0), new Size(5, 1));
                 _asteroids = new Asteroid[numOfAsteroids];
 
                 exceptionExists = false;
@@ -119,7 +131,8 @@ namespace MyGame
             catch (GameObjectException except)
             {
                 exceptionExists = true;
-                MessageBox.Show(except.Message, "Уведомление");
+                //MessageBox.Show(except.Message, "Уведомление");
+                Debug.WriteLine($"{DateTime.Now.ToString()}: {except.ToString()}");
             }
             finally
             {
@@ -168,7 +181,7 @@ namespace MyGame
             }
             catch (ArgumentOutOfRangeException except)
             {
-                MessageBox.Show(except.Message, "Уведомление");
+                //MessageBox.Show(except.Message, "Уведомление");
             }
 
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
@@ -193,9 +206,25 @@ namespace MyGame
         /// <param name="e"> Обработчик действия </param>
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
-            if (e.KeyCode == Keys.Up) _ship.Up();
-            if (e.KeyCode == Keys.Down) _ship.Down();
+            if (e.KeyCode == Keys.Space)
+                _bullet.Add( new Bullet(
+                                        new Point(_ship.Rect.X + ShipSize, _ship.Rect.Y + ShipSize / 2),
+                                        new Point(bulletSpeed, 0),
+                                        new Size(5, 2)
+                                        )
+                );
+            if (e.KeyCode == Keys.Up)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    _ship.Up();
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+                for (int i = 0; i < 5; i++)
+                {
+                    _ship.Down();
+                }
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
@@ -211,15 +240,24 @@ namespace MyGame
         {
             Buffer.Graphics.Clear(Color.Black);
             foreach (BaseObject obj in _objs)
-                obj?.Draw();
-
-            foreach (Asteroid obj in _asteroids)
-                obj?.Draw();
-            _bullet?.Draw();
+                obj.Draw();
+            foreach (Asteroid a in _asteroids)
+            {
+                a?.Draw();
+            }
+            foreach (Bullet b in _bullet)
+            {
+                b?.Draw();
+            }
             _ship?.Draw();
-            if (_ship != null)
-                Buffer.Graphics.DrawString("Energy:" + _ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
 
+            if (_ship != null)
+            {
+                Buffer.Graphics.DrawString("Жизнь:" + _ship.Energy, new Font(FontFamily.GenericSansSerif, 25, FontStyle.Italic), Brushes.White, Width - 500, 50);
+                Buffer.Graphics.DrawString("Кол-во очков:" + score, new Font(FontFamily.GenericSansSerif, 25, FontStyle.Italic), Brushes.White, Width - 500, 0);
+            }
+            else
+                Buffer.Graphics.DrawString("Энергия:" + 0, new Font(FontFamily.GenericSansSerif, 25, FontStyle.Italic), Brushes.White, Width - 300, 50);
             Buffer.Render();
         }
 
@@ -228,44 +266,53 @@ namespace MyGame
         /// </summary>
         public static void Update()
         {
-            foreach (BaseObject obj in _objs)
-                obj.Update();
-                _bullet?.Update();
+            foreach (BaseObject obj in _objs) obj.Update();
+            foreach (Bullet bul in _bullet) bul?.Update();
+
             for (var i = 0; i < _asteroids.Length; i++)
             {
                 if (_asteroids[i] == null) continue;
                 _asteroids[i].Update();
-                if (_bullet != null && _bullet.Collision(_asteroids[i]))
+                for (var j = 0; j < _bullet.Count; j++)
                 {
-                    System.Media.SystemSounds.Hand.Play();
-                    _asteroids[i] = null;
-                    _bullet = null;
-                    continue;
+                    //if (_bullet != null && _bullet.Collision(_asteroids[i]))
+                    if (_bullet[j]?.Collision(_asteroids[i]) ?? false)
+                    {
+                        System.Media.SystemSounds.Hand.Play();
+                        _asteroids[i].ReCreate();
+                        _bullet[j].Destroyed();
+                        _bullet.RemoveAt(j);
+                        score += _asteroids[i].Power;
+                        continue;
+                    }
+
+                    if (_bullet[j].OutOfScreen())
+                        _bullet.RemoveAt(j);
                 }
-                if (!_ship.Collision(_asteroids[i])) continue;
-                var rnd = new Random();
-                _ship?.EnergyLow(rnd.Next(1, 10));
-                System.Media.SystemSounds.Asterisk.Play();
-                if (_ship.Energy <= 0) _ship?.Die();
+
+                if (_ship.Collision(_asteroids[i]))
+                {
+                    _asteroids[i].ReCreate();
+                    _ship?.EnergyLow(_asteroids[i].Power);
+                    System.Media.SystemSounds.Asterisk.Play();
+                    if (_ship.Energy <= 0) _ship?.Die();
+                };
             }
 
-            //foreach (Asteroid ast in _asteroids)
-            //{
-            //    ast?.Update();
-            //    if (ast.Collision(_bullet))
-            //    {
-            //        System.Media.SystemSounds.Hand.Play();
-            //        ast.ReCreate();
-            //        _bullet.ReСreate();
-            //    }
-            //}
-
+    }
+        /// <summary>Метод завершающий игру </summary>
+        public static void Closed()
+        {
+            timer.Stop();
+            timer.Tick -= Timer_Tick;
         }
 
         public static void Finish()
         {
-            timer.Stop();
-            Buffer.Graphics.DrawString("Конец игры!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, 200, 100);
+            Closed();
+            Buffer.Graphics.DrawString("Конец игры!", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, (Width / 3) + 70, Height / 3);
+            Buffer.Graphics.DrawString($"Вы набрали {score} очков", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Bold), Brushes.White, (Width / 3) - 100, Height / 2);
+
             Buffer.Render();
         }
 
