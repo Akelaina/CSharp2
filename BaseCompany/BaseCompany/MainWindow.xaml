@@ -5,8 +5,117 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BaseCompany"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="База компании" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label 
+            Name ="lblDepList"
+            Content="Список департаментов" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="15"
+            Grid.Row="0" Grid.ColumnSpan="2" Margin="74,0" Height="29" Width="169"
+        />
+
+        <Label
+            Name ="lblEmpList"
+            Content="Список сотрудников" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="15"
+            Grid.Row="3" Grid.ColumnSpan="2" Margin="82,1,83,1" Height="28" Width="152"
+        />
+
+        <ComboBox 
+            x:Name="DepList"
+            Grid.Row="1"
+            Grid.RowSpan="1"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Top" 
+            Margin="5,0,5,0" 
+         />
+
+
+        <Button 
+            Name="AddDep"
+            Content="Добавить отдел" 
+            Margin="5" 
+            Grid.Row="2" 
+            FontSize="12" Click="AddDep_Click"            
+            />
+
+        <Button 
+            Name="EditDep"
+            Content="Изменить отдел" 
+            Margin="5" 
+            Grid.Row="2" 
+            Grid.Column="1"
+            FontSize="12" Click="EditDep_Click"
+         />
+        <Button Content="Добавить сотрудника" 
+            Margin="5" 
+            Grid.Row="5" 
+            Grid.Column="0"
+            FontSize="12"
+         />
+        <Button Content="Изменить сотрудника" 
+            Margin="5" 
+            Grid.Row="5" 
+            Grid.Column="1"
+            FontSize="12"
+         />
+        <Label 
+            Content="Полная информация" 
+            Grid.Column="2"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="15"
+            />
+        <Label 
+            Grid.Column="2" 
+            HorizontalAlignment="Left" 
+            Margin="20,20,0,0" 
+            Grid.Row="1" 
+            VerticalAlignment="Top"/>
+        <Border 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            Grid.Column="3" 
+            HorizontalAlignment="Center" 
+            Height="100" 
+            Grid.Row="1" 
+            VerticalAlignment="Center" 
+            Width="100">
+            <Image/>
+        </Border>
+        <ListView 
+            x:Name ="EmpList"
+            Margin="13,13,13,13" 
+            Grid.Row="4" 
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
     </Grid>
 </Window>

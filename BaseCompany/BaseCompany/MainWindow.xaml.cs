@@ -23,6 +23,41 @@ namespace BaseCompany
         public MainWindow()
         {
             InitializeComponent();
+
+            List<string> Department = new List<string>()
+            {
+                "Отдел 1",
+                "Отдел 2",
+                "Отдел 3",
+                "Отдел 4",
+                "Отдел 5",
+            };
+
+            List<string> Employee = new List<string>()
+            {
+                "Имя Фамилия 1",
+                "Имя Фамилия 2",
+                "Имя Фамилия 3",
+                "Имя Фамилия 4",
+                "Имя Фамилия 5",
+                "Имя Фамилия 6",
+                "Имя Фамилия 7",
+                "Имя Фамилия 8",
+            };
+
+            DepList.ItemsSource = Department;
+            EmpList.ItemsSource = Employee;
+
+        }
+
+        private void AddDep_Click(object sender, RoutedEventArgs e)
+        {
+           new AddDepWindow().Show();
+        }
+
+        private void EditDep_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
