@@ -7,6 +7,114 @@
         mc:Ignorable="d"
         Title="EditEmpWindow" Height="450" Width="350">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="20*"/>
+
+        </Grid.RowDefinitions>
+        <Label 
+            Content="Изменение данных о сотруднике" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="20"
+            Grid.ColumnSpan="2"/>
+        <Label 
+            Content="Имя:" 
+            HorizontalAlignment="Right" 
+            Grid.Row="1" 
+            FontSize="17"
+            VerticalAlignment="Center"/>
+        <Label 
+            Content="Фамилия:" 
+            HorizontalAlignment="Right" 
+            Grid.Row="2" 
+            FontSize="17"
+            VerticalAlignment="Center"/>
+        <Label 
+           Content="Возраст:" 
+            HorizontalAlignment="Right" 
+            Grid.Row="3" 
+            FontSize="17"
+            VerticalAlignment="Center"/>
+        <Label Content="Зарплата" 
+            HorizontalAlignment="Right" 
+            Grid.Row="4" 
+            FontSize="17"
+            VerticalAlignment="Center"/>
+        <Label Content="Отдел:" 
+            HorizontalAlignment="Right" 
+            Grid.Row="5" 
+            FontSize="17"
+            VerticalAlignment="Center"/>
+        <TextBox 
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="19,13,0,14"
+            Height="24" 
+            Grid.Row="1" 
+            TextWrapping="Wrap" 
+            Text="имя" 
+            FontSize="17"
+            VerticalAlignment="Center" 
+            Width="120"/>
+        <TextBox  Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="19,13,0,14"
+            Height="24" 
+            Grid.Row="2" 
+            TextWrapping="Wrap" 
+            Text="фамилия" 
+            FontSize="17"
+            VerticalAlignment="Center" 
+            Width="120"/>
+        <TextBox  Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="19,13,0,14"
+            Height="24" 
+            Grid.Row="3" 
+            TextWrapping="Wrap" 
+            Text="возраст" 
+            FontSize="17"
+            VerticalAlignment="Center" 
+            Width="120"/>
+        <TextBox  Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="19,13,0,14"
+            Height="24" 
+            Grid.Row="4" 
+            TextWrapping="Wrap" 
+            Text="зарплата" 
+            FontSize="17"
+            VerticalAlignment="Center" 
+            Width="120"/>
+        <TextBox  Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Margin="19,13,0,14"
+            Height="24" 
+            Grid.Row="5" 
+            TextWrapping="Wrap" 
+            Text="отдел" 
+            FontSize="17"
+            VerticalAlignment="Center" 
+            Width="120"/>
+        <Button 
+            Content="Сохранить" 
+            HorizontalAlignment="Center" 
+            Grid.Row="6" 
+            FontSize="20"
+            VerticalAlignment="Center" 
+            Width="100"  
+            Grid.ColumnSpan="2" />
+
+
     </Grid>
 </Window>

@@ -57,7 +57,17 @@ namespace BaseCompany
 
         private void EditDep_Click(object sender, RoutedEventArgs e)
         {
+            new EditDepWindow().Show();
+        }
 
+        private void AddEmp_Click(object sender, RoutedEventArgs e)
+        {
+            new AddEmpWindow().Show();
+        }
+
+        private void EditEmp_Click(object sender, RoutedEventArgs e)
+        {
+            new EditEmpWindow().Show();
         }
     }
 }

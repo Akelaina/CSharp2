@@ -53,30 +53,37 @@
         <Button 
             Name="AddDep"
             Content="Добавить отдел" 
-            Margin="5" 
+            Margin="5,5,5,0" 
             Grid.Row="2" 
-            FontSize="12" Click="AddDep_Click"            
+            FontSize="12" Click="AddDep_Click" Height="19" VerticalAlignment="Top"            
             />
 
         <Button 
             Name="EditDep"
             Content="Изменить отдел" 
-            Margin="5" 
+            Margin="5,5,5,0" 
             Grid.Row="2" 
             Grid.Column="1"
-            FontSize="12" Click="EditDep_Click"
+            FontSize="12" Click="EditDep_Click" Height="19" VerticalAlignment="Top"
          />
-        <Button Content="Добавить сотрудника" 
+        <Button 
+            Name="AddEmp"
+            Content="Добавить сотрудника" 
             Margin="5" 
             Grid.Row="5" 
             Grid.Column="0"
-            FontSize="12"
+            FontSize="12" Click="AddEmp_Click"
          />
-        <Button Content="Изменить сотрудника" 
-            Margin="5" 
+        <Button 
+            Name="EditEmp"
+            Content="Изменить сотрудника" 
+            Margin="5,5,5,0" 
             Grid.Row="5" 
             Grid.Column="1"
-            FontSize="12"
+            FontSize="12" 
+            Height="19" 
+            VerticalAlignment="Top" 
+            Click="EditEmp_Click"
          />
         <Label 
             Content="Полная информация" 
