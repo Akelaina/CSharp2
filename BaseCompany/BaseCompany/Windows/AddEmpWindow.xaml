@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BaseCompany"
         mc:Ignorable="d"
-        Title="AddEmpWindow" Height="458.511" Width="350">
+        Title="Внесение изменений в базу данных" Height="450" Width="350"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="450" MinWidth ="350"
+        MaxHeight="450" MaxWidth ="350">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -56,6 +59,7 @@
             FontSize="17"
             VerticalAlignment="Center"/>
         <TextBox 
+            x:Name="tboxName"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -65,7 +69,9 @@
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxSurname"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
@@ -74,7 +80,9 @@
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxAge"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
@@ -83,7 +91,10 @@
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        
+        <TextBox  
+            x:Name="tboxSalary"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
@@ -92,7 +103,9 @@
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxDepartment"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
@@ -102,6 +115,8 @@
             VerticalAlignment="Center" 
             Width="120"/>
         <Button 
+            x:Name="btnSave"
+            Click="BtnSave_Click"
             Content="Добавить" 
             HorizontalAlignment="Center" 
             Grid.Row="6" 

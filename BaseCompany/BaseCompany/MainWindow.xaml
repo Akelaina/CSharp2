@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BaseCompany"
         mc:Ignorable="d"
-        Title="База компании" Height="450" Width="800">
+        Title="База компании" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="450" MinWidth ="800"
+        MaxHeight="450" MaxWidth ="800"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
@@ -41,63 +45,67 @@
         />
 
         <ComboBox 
-            x:Name="DepList"
+            x:Name="cbDepList" 
             Grid.Row="1"
             Grid.RowSpan="1"
             Grid.ColumnSpan="2"
             VerticalAlignment="Top" 
             Margin="5,0,5,0" 
-         />
-
-
+            SelectionChanged="Selected"
+            ItemsSource="{Binding departments, UpdateSourceTrigger=PropertyChanged }"
+            ToolTip="Выберите департамент">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+ 
         <Button 
-            Name="AddDep"
+            x:Name="btnCreateDep"
+            Click="BtnCreateDep_Click"
             Content="Добавить отдел" 
             Margin="5,5,5,0" 
             Grid.Row="2" 
-            FontSize="12" Click="AddDep_Click" Height="19" VerticalAlignment="Top"            
+            FontSize="12" Height="19" VerticalAlignment="Top"            
             />
 
         <Button 
-            Name="EditDep"
+            x:Name="btnEditDep" 
+            Click="BtnEditDep_Click"
             Content="Изменить отдел" 
             Margin="5,5,5,0" 
             Grid.Row="2" 
             Grid.Column="1"
-            FontSize="12" Click="EditDep_Click" Height="19" VerticalAlignment="Top"
+            FontSize="12"  Height="19" VerticalAlignment="Top"
          />
         <Button 
-            Name="AddEmp"
+            x:Name="btnCreateEmp" 
+            Click="BtnCreateEmp_Click"
             Content="Добавить сотрудника" 
             Margin="5" 
             Grid.Row="5" 
             Grid.Column="0"
-            FontSize="12" Click="AddEmp_Click"
+            FontSize="12"
          />
         <Button 
-            Name="EditEmp"
+            x:Name="btnEditEmp"
+            Click="BtnEditEmp_Click"
             Content="Изменить сотрудника" 
             Margin="5,5,5,0" 
             Grid.Row="5" 
             Grid.Column="1"
             FontSize="12" 
             Height="19" 
-            VerticalAlignment="Top" 
-            Click="EditEmp_Click"
+            VerticalAlignment="Top"
          />
         <Label 
             Content="Полная информация" 
             Grid.Column="2"
-            HorizontalAlignment="Center" 
+            HorizontalAlignment="Right" 
             VerticalAlignment="Center"
             FontSize="15"
             />
-        <Label 
-            Grid.Column="2" 
-            HorizontalAlignment="Left" 
-            Margin="20,20,0,0" 
-            Grid.Row="1" 
-            VerticalAlignment="Top"/>
         <Border 
             BorderBrush="Black" 
             BorderThickness="1" 
@@ -107,21 +115,41 @@
             Grid.Row="1" 
             VerticalAlignment="Center" 
             Width="100">
-            <Image/>
+            <Image Source="ava.png" />
         </Border>
         <ListView 
-            x:Name ="EmpList"
+            x:Name="empList"
             Margin="13,13,13,13" 
             Grid.Row="4" 
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+            SelectionChanged="Selected">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat=" {0} {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListView>
+        
+        <TextBlock 
+            x:Name="tbInfo"
+            Text=""
+            TextWrapping="Wrap" 
+            FontSize="13"
+            Grid.Column="2"
+
+            Margin="20,7,0,0" 
+            Grid.Row="1" 
+            VerticalAlignment="Top"
+            HorizontalAlignment="Stretch"
+            />
 
 
     </Grid>

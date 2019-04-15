@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BaseCompany.Classes;
 
 namespace BaseCompany
 {
@@ -19,14 +20,30 @@ namespace BaseCompany
     /// </summary>
     public partial class EditDepWindow : Window
     {
-        public EditDepWindow()
+        uint depid;
+
+        public EditDepWindow(uint id, string oldName)
         {
             InitializeComponent();
+            tblOldName.Text = oldName;
+            depid = id;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Обработка кнопки "Сохранить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MainWindow.database.editDep(tboxNewName.Text, depid))
+            {
+                MessageBox.Show("Новое название добавлено в базу!");
+                this.Close();
+            }
+            else
+                MessageBox.Show("Такое название уже существует!");
         }
+
     }
 }

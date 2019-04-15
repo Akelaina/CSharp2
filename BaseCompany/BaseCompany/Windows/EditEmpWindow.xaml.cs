@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BaseCompany.Classes;
 
 namespace BaseCompany
 {
@@ -19,11 +20,33 @@ namespace BaseCompany
     /// </summary>
     public partial class EditEmpWindow : Window
     {
-        public EditEmpWindow()
+        Employee oldemp;
+        internal EditEmpWindow(Employee employee)
         {
             InitializeComponent();
+            oldemp = employee;
+            tboxName.Text = employee.Name;
+            tboxSurname.Text = employee.Surname;
+            tboxAge.Text = employee.Age.ToString();
+            tboxSalary.Text = employee.Salary.ToString();
+            tboxDep.Text = employee.DepartmentID.ToString();
+
         }
 
-       
+        /// <summary>
+        /// Обработка кнопки "Сохранить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.database.editEmp(oldemp, tboxName.Text, tboxSurname.Text, tboxAge.Text, tboxSalary.Text, uint.Parse(tboxDep.Text)))
+            {
+                MessageBox.Show("Все данные внесены в базу!");
+                this.Close();
+            }
+            else
+                MessageBox.Show("Такой сотрудник уже существует, проверьте правильность введенных данных!");
+        }
     }
 }

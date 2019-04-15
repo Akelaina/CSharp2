@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BaseCompany"
         mc:Ignorable="d"
-        Title="Добавление отдела" Height="246.809" Width="409.574">
+        Title="Добавление отдела" Height="250" Width="400"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="250" MinWidth ="400"
+        MaxHeight="250" MaxWidth ="400"
+        >
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
@@ -20,6 +25,7 @@
                FontSize="20"
                VerticalAlignment="Center"/>
         <TextBox 
+            x:Name="tboxNewDep"
             HorizontalAlignment="Center" 
             Height="40" 
             Grid.Row="2" 
@@ -29,6 +35,8 @@
             Width="300"
             />
         <Button 
+            x:Name="btnSaveDep"
+            Click="BtnSaveDep_Click"
             Content="Добавить" 
             HorizontalAlignment="Center" 
             Grid.Row="3" 

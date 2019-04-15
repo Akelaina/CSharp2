@@ -24,6 +24,20 @@ namespace BaseCompany
             InitializeComponent();
         }
 
-       
+        /// <summary>
+        /// Обработка кнопки "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.database.addEmp(tboxName.Text, tboxSurname.Text, tboxAge.Text, tboxSalary.Text, uint.Parse(tboxDepartment.Text)))
+            {
+                MessageBox.Show("Новый сотрудник добавлен!");
+                this.Close();
+            }
+            else
+                MessageBox.Show("Такой сотрудник уже существует или введены неправильные данные!");
+        }
     }
 }

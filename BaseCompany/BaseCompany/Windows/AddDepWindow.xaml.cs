@@ -19,9 +19,26 @@ namespace BaseCompany
     /// </summary>
     public partial class AddDepWindow : Window
     {
+
         public AddDepWindow()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Обработка кнопки "Добавить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSaveDep_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.database.addDep(tboxNewDep.Text))
+            {
+                MessageBox.Show("Новый отдел добавлен!");
+                this.Close();
+            }
+            else
+                MessageBox.Show("Такой отдел уже существует!");
         }
     }
 }

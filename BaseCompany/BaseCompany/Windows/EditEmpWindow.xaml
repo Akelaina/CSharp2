@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BaseCompany"
         mc:Ignorable="d"
-        Title="EditEmpWindow" Height="450" Width="350">
+        Title="Внесение изменений в базу данных" Height="450" Width="350"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="450" MinWidth ="350"
+        MaxHeight="450" MaxWidth ="350"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -56,57 +60,63 @@
             FontSize="17"
             VerticalAlignment="Center"/>
         <TextBox 
+            x:Name="tboxName"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
             Grid.Row="1" 
             TextWrapping="Wrap" 
-            Text="имя" 
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxSurname"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
             Grid.Row="2" 
             TextWrapping="Wrap" 
-            Text="фамилия" 
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxAge"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
             Grid.Row="3" 
             TextWrapping="Wrap" 
-            Text="возраст" 
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxSalary"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
             Grid.Row="4" 
             TextWrapping="Wrap" 
-            Text="зарплата" 
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
-        <TextBox  Grid.Column="1" 
+        <TextBox  
+            x:Name="tboxDep"
+            Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
             Height="24" 
             Grid.Row="5" 
             TextWrapping="Wrap" 
-            Text="отдел" 
             FontSize="17"
             VerticalAlignment="Center" 
             Width="120"/>
         <Button 
+            x:Name="btnSave"
+            Click="BtnSave_Click"
             Content="Сохранить" 
             HorizontalAlignment="Center" 
             Grid.Row="6" 

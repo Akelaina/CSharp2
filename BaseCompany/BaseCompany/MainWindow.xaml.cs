@@ -13,61 +13,96 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using BaseCompany.Classes;
+
 namespace BaseCompany
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+      public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Класс базы данных компании
+        /// </summary>
+        internal static db database;
+
         public MainWindow()
         {
             InitializeComponent();
+            database = new db();
+            empList.ItemsSource = database.GetEmployees();
+            cbDepList.ItemsSource = database.GetDepartments();
+            this.DataContext = database;
+        }
 
-            List<string> Department = new List<string>()
+        /// <summary>
+        /// Выбор события из списка
+        /// </summary>
+        /// <param name="sender">Объект</param>
+        /// <param name="args">Параметры</param>
+        private void Selected(object sender, SelectionChangedEventArgs args)
+        {
+            tbInfo.Text = database.GetInfo(sender);
+        }
+
+        /// <summary>
+        /// Обработка кнопки "Изменить отдел"
+        /// </summary>
+        /// <param name="sender">Объект</param>
+        /// <param name="args">Параметры</param>
+        private void BtnEditDep_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbDepList.SelectedItem != null)
             {
-                "Отдел 1",
-                "Отдел 2",
-                "Отдел 3",
-                "Отдел 4",
-                "Отдел 5",
-            };
+                Department editdep = cbDepList.SelectedItem as Department;
+                EditDepWindow depEditWindow = new EditDepWindow(editdep.DepartmentID, editdep.Name);
+                depEditWindow.Owner = this;
+                depEditWindow.Show();
+            }
+            else
+                MessageBox.Show("Выберите отдел для редактирования!");
+        }
 
-            List<string> Employee = new List<string>()
+        /// <summary>
+        /// Обработка кнопки "Изменить сотрудника"
+        /// </summary>
+        /// <param name="sender">Объект</param>
+        /// <param name="args">Параметры</param>
+        private void BtnEditEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (empList.SelectedItem != null)
             {
-                "Имя Фамилия 1",
-                "Имя Фамилия 2",
-                "Имя Фамилия 3",
-                "Имя Фамилия 4",
-                "Имя Фамилия 5",
-                "Имя Фамилия 6",
-                "Имя Фамилия 7",
-                "Имя Фамилия 8",
-            };
-
-            DepList.ItemsSource = Department;
-            EmpList.ItemsSource = Employee;
-
+                EditEmpWindow empEditWindow = new EditEmpWindow(empList.SelectedItem as Employee);
+                empEditWindow.Owner = this;
+                empEditWindow.Show();
+            }
+            else
+                MessageBox.Show("Выберите сотрудника для редактирования!");
         }
 
-        private void AddDep_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Обработка кнопки "Добавить сотрудника"
+        /// </summary>
+        /// <param name="sender">Объект</param>
+        /// <param name="args">Параметры</param>
+        private void BtnCreateEmp_Click(object sender, RoutedEventArgs e)
         {
-           new AddDepWindow().Show();
+            AddEmpWindow addEmpWindow = new AddEmpWindow();
+            addEmpWindow.Owner = this;
+            addEmpWindow.Show();
         }
 
-        private void EditDep_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Обработка кнопки "Добавить отдел"
+        /// </summary>
+        /// <param name="sender">Объект</param>
+        /// <param name="args">Параметры</param>
+        private void BtnCreateDep_Click(object sender, RoutedEventArgs e)
         {
-            new EditDepWindow().Show();
-        }
-
-        private void AddEmp_Click(object sender, RoutedEventArgs e)
-        {
-            new AddEmpWindow().Show();
-        }
-
-        private void EditEmp_Click(object sender, RoutedEventArgs e)
-        {
-            new EditEmpWindow().Show();
+            AddDepWindow addDepWindow = new AddDepWindow();
+            addDepWindow.Owner = this;
+            addDepWindow.Show();
         }
     }
 }

@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Classes\db.cs" />
     <Compile Include="Windows\AddDepWindow.xaml.cs">
       <DependentUpon>AddDepWindow.xaml</DependentUpon>
     </Compile>
