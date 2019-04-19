@@ -1,0 +1,49 @@
+﻿<Window x:Class="BaseCompany.AddDepWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BaseCompany"
+        mc:Ignorable="d"
+        Title="Добавление отдела" Height="250" Width="400"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="250" MinWidth ="400"
+        MaxHeight="250" MaxWidth ="400"
+        >
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Добавить новый отдел" 
+               HorizontalAlignment="Center" 
+               Grid.Row="1" 
+               FontSize="20"
+               VerticalAlignment="Center"/>
+        <TextBox 
+            x:Name="tboxNewDep"
+            HorizontalAlignment="Center" 
+            Height="40" 
+            Grid.Row="2" 
+            TextWrapping="Wrap" 
+            Text="" 
+            VerticalAlignment="Center" 
+            Width="300"
+            />
+        <Button 
+            x:Name="btnSaveDep"
+            Click="BtnSaveDep_Click"
+            Content="Добавить" 
+            HorizontalAlignment="Center" 
+            Grid.Row="3" 
+            FontSize="20"
+            VerticalAlignment="Center" 
+            />
+
+
+    </Grid>
+</Window>
