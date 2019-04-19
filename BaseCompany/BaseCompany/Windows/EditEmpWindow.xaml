@@ -60,7 +60,7 @@
             FontSize="17"
             VerticalAlignment="Center"/>
         <TextBox 
-            x:Name="tboxName"
+            x:Name="NameColumn"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -71,7 +71,7 @@
             VerticalAlignment="Center" 
             Width="120"/>
         <TextBox  
-            x:Name="tboxSurname"
+            x:Name="SurnameColumn"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -82,7 +82,7 @@
             VerticalAlignment="Center" 
             Width="120"/>
         <TextBox  
-            x:Name="tboxAge"
+            x:Name="AgeColumn"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -93,7 +93,7 @@
             VerticalAlignment="Center" 
             Width="120"/>
         <TextBox  
-            x:Name="tboxSalary"
+            x:Name="SalaryColumn"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -104,7 +104,7 @@
             VerticalAlignment="Center" 
             Width="120"/>
         <TextBox  
-            x:Name="tboxDep"
+            x:Name="DepartmentColumn"
             Grid.Column="1" 
             HorizontalAlignment="Left" 
             Margin="19,13,0,14"
@@ -116,14 +116,22 @@
             Width="120"/>
         <Button 
             x:Name="btnSave"
-            Click="BtnSave_Click"
+            Click="saveButton_Click"
             Content="Сохранить" 
             HorizontalAlignment="Center" 
             Grid.Row="6" 
             FontSize="20"
             VerticalAlignment="Center" 
-            Width="100"  
-            Grid.ColumnSpan="2" />
+            Width="100" Margin="35,31,36,22" />
+        <Button 
+            x:Name="btnCancel"
+            Click="cancelButton_Click"
+            Content="Отмена" 
+            HorizontalAlignment="Center" 
+            Grid.Row="6" 
+            FontSize="20"
+            VerticalAlignment="Center" 
+            Width="100" Margin="39,31,32,22" Grid.Column="1" />
 
 
     </Grid>

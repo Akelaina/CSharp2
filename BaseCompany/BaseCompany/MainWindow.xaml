@@ -60,7 +60,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
- 
+
         <Button 
             x:Name="btnCreateDep"
             Click="BtnCreateDep_Click"
@@ -137,7 +137,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListView>
-        
+
         <TextBlock 
             x:Name="tbInfo"
             Text=""
@@ -150,6 +150,30 @@
             VerticalAlignment="Top"
             HorizontalAlignment="Stretch"
             />
+        <DataGrid 
+            Name="peopleDataGrid" AutoGenerateColumns="False"
+                  ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Right" Width="273" Grid.Column="2" Margin="0,7,24,115" Grid.Row="1" SelectionChanged="PeopleDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="IDColumn" Binding="{Binding ID}" 
+                                    Header="ID" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="NameColumn" Binding="{Binding ID}" 
+                                    Header="Имя" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="SurNameColumn" Binding="{Binding ID}" 
+                                    Header="Фамилия" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="AgeColumn" Binding="{Binding ID}" 
+                                    Header="Возраст" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="SalaryColumn" Binding="{Binding ID}" 
+                                    Header="Зарплата" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn x:Name="DepartmentColumn" Binding="{Binding ID}" 
+                                    Header="Отдел" IsReadOnly="True" Width="Auto"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="addButton" Content="Добавить" Click="addButton_Click" Grid.Column="2" Grid.Row="5" Width="70" Height="20" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+        <Button x:Name="updateButton" Content="Изменить" Click="updateButton_Click" Grid.Column="2" Grid.Row="5" Width="70" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        <Button x:Name="deleteButton" Content="Удалить" Click="deleteButton_Click" Grid.Column="2" Grid.Row="5" Width="70" Height="20" HorizontalAlignment="Right"  VerticalAlignment="Center" />
+
+
 
 
     </Grid>

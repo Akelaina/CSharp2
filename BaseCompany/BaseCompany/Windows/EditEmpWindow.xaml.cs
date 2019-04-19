@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,28 +26,61 @@ namespace BaseCompany
         {
             InitializeComponent();
             oldemp = employee;
-            tboxName.Text = employee.Name;
-            tboxSurname.Text = employee.Surname;
-            tboxAge.Text = employee.Age.ToString();
-            tboxSalary.Text = employee.Salary.ToString();
-            tboxDep.Text = employee.DepartmentID.ToString();
+            NameColumn.Text = employee.Name;
+            SurnameColumn.Text = employee.Surname;
+            AgeColumn.Text = employee.Age.ToString();
+            SalaryColumn.Text = employee.Salary.ToString();
+            DepartmentColumn.Text = employee.DepartmentID.ToString();
 
         }
+
+        public DataRow resultRow { get; set; }
+        public EditEmpWindow(DataRow dataRow)
+        {
+            InitializeComponent();
+            resultRow = dataRow;
+
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            NameColumn.Text = resultRow["Имя"].ToString();
+            SurnameColumn.Text = resultRow["Фамилия"].ToString();
+            AgeColumn.Text = resultRow["Возраст"].ToString();
+            SalaryColumn.Text = resultRow["Зарплата"].ToString();
+            DepartmentColumn.Text = resultRow["Отдел"].ToString();
+        }
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            resultRow["Имя"] = NameColumn.Text;
+            resultRow["Фамилия"] = SurnameColumn.Text;
+            resultRow["Возраст"] = AgeColumn.Text;
+            resultRow["Зарплата"] = SalaryColumn.Text;
+            resultRow["Отдел"] = DepartmentColumn.Text;
+            this.DialogResult = true;
+        }
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        
 
         /// <summary>
         /// Обработка кнопки "Сохранить"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainWindow.database.editEmp(oldemp, tboxName.Text, tboxSurname.Text, tboxAge.Text, tboxSalary.Text, uint.Parse(tboxDep.Text)))
-            {
-                MessageBox.Show("Все данные внесены в базу!");
-                this.Close();
-            }
-            else
-                MessageBox.Show("Такой сотрудник уже существует, проверьте правильность введенных данных!");
-        }
+        //private void BtnSave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (MainWindow.database.editEmp(oldemp, NameColumn.Text, NameColumn.Text, AgeColumn.Text, SalaryColumn.Text, uint.Parse(DepartmentColumn.Text)))
+        //    {
+        //        MessageBox.Show("Все данные внесены в базу!");
+        //        this.Close();
+        //    }
+        //    else
+        //        MessageBox.Show("Такой сотрудник уже существует, проверьте правильность введенных данных!");
+        //}
     }
 }
