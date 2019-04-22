@@ -11,11 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
-namespace BaseCompany
+namespace Company.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddDepWindow.xaml
+    /// Interaction logic for AddDepWindow.xaml
     /// </summary>
     public partial class AddDepWindow : Window
     {
@@ -25,20 +26,18 @@ namespace BaseCompany
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Обработка кнопки "Добавить"
-        /// </summary>
+        /// <summary>Обработчик нажатия кнопки "Добавить"</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnSaveDep_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.database.addDep(tboxNewDep.Text))
-            {
-                MessageBox.Show("Новый отдел добавлен!");
-                this.Close();
-            }
-            else
-                MessageBox.Show("Такой отдел уже существует!");
+            //if (MainWindow.dbd.addDep(tboxNewDep.Text))
+            //{
+            //    MessageBox.Show("Отдел добавлен!");
+            //    this.Close();
+            //}
+            //else
+            //    MessageBox.Show("Такой отдел уже существует!");
         }
     }
 }

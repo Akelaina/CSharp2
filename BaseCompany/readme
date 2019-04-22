@@ -1,0 +1,42 @@
+Создать БД с именем "lesson7_1713"
+
+CREATE TABLE [Departments] (
+    [ID]   INT        IDENTITY (1, 1) NOT NULL,
+    [dName] NCHAR (20) DEFAULT (N'Новый_отдел_1') NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+
+
+
+CREATE TABLE [Employees] (
+    [ID]           INT        IDENTITY (1, 1) NOT NULL,
+    [eName]         NCHAR (10) NOT NULL,
+    [Surname]      NCHAR (10) NOT NULL,
+    [Age]          TINYINT    DEFAULT ((22)) NULL,
+    [Salary]       MONEY      DEFAULT ((50000)) NULL,
+    [DepartmentID] INT        DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_Employees] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_DepartmentID] FOREIGN KEY ([DepartmentID]) REFERENCES [Departments] ([ID])
+);
+
+
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_1')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_2')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_3')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_4')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_5')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_6')
+INSERT INTO Departments (dName) VALUES (N'Новый_отдел_7')
+
+
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_0', N'Фамилия_0', 18, 35000, 1)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_1', N'Фамилия_1', 19, 38000, 2)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_2', N'Фамилия_2', 20, 40000, 3)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_3', N'Фамилия_3', 35, 40000, 4)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_4', N'Фамилия_4', 40, 20000, 6)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_5', N'Фамилия_5', 45, 125000, 7)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_6', N'Фамилия_6', 80, 100000, 7)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_7', N'Фамилия_7', 40, 85000, 5)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_8', N'Фамилия_8', 18, 20000, 6)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_9', N'Фамилия_9', 20, 35000, 4)
+INSERT INTO Employees (eName, Surname, Age, Salary, DepartmentID) VALUES (N'Имя_10', N'Фамилия_10', 25, 60000, 7)

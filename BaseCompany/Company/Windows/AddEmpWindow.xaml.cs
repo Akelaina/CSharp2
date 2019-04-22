@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BaseCompany
+namespace Company.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для AddEmpWindow.xaml
+    /// Interaction logic for AddEmpWindow.xaml
     /// </summary>
     public partial class AddEmpWindow : Window
     {
@@ -24,20 +24,19 @@ namespace BaseCompany
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Обработка кнопки "Добавить"
-        /// </summary>
+        /// <summary>Обработчик нажатия кнопки "Cохранить"</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.database.addEmp(tboxName.Text, tboxSurname.Text, tboxAge.Text, tboxSalary.Text, uint.Parse(tboxDepartment.Text)))
-            {
-                MessageBox.Show("Новый сотрудник добавлен!");
-                this.Close();
-            }
-            else
-                MessageBox.Show("Такой сотрудник уже существует или введены неправильные данные!");
+            //if (MainWindow.dbd.addEmp(tboxName.Text, tboxSurname.Text, tboxAge.Text, tboxSalary.Text, 
+            //    (cboxDepartment.SelectedItem as Department).DepartmentID))
+            //{
+            //    MessageBox.Show("Сотрудник добавлен!");
+            //    this.Close();
+            //}
+            //else
+            //    MessageBox.Show("Такой сотрудник уже существует или введены некоректные данные!");
         }
     }
 }
