@@ -1,0 +1,33 @@
+﻿<Window x:Class="Company.Windows.AddDepWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Company.Windows"
+        mc:Ignorable="d"
+        Title="AddDepWindow" Height="197.957" Width="318.63">
+    <Grid>
+        <Label x:Name="lblDepName" 
+               Content="Название нового отдела:" 
+               HorizontalAlignment="Left" 
+               Margin="50,25,0,0" 
+               VerticalAlignment="Top"/>
+
+        <TextBox x:Name="tboxNewDep"
+            HorizontalAlignment="Left" 
+            Height="auto" 
+            Margin="50,60,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="200"
+            Padding="3"/>
+        <Button x:Name="btnSaveDep" 
+            Content="Сохранить" 
+            HorizontalAlignment="Center" 
+            Margin="30,110,30,0"
+            VerticalAlignment="Top" 
+            Width="auto"
+            Padding="3" Click="BtnSaveDep_Click"/>
+
+    </Grid>
+</Window>
